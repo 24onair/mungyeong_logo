@@ -525,7 +525,7 @@ function drawSlab(c, t) {
 }
 
 // ------------------------------------------------------- booking content
-const PHONE = '1688-6070';
+const PHONE = '1688-6707';
 let NUM = null;
 function numLayout(c) {
   if (NUM) return NUM;
