@@ -1,0 +1,12 @@
+{
+  "name": "mungyeong-paragliding-reel",
+  "private": true,
+  "description": "4.5s 1080x1920 motion-graphics end reel for 문경패러글라이딩",
+  "scripts": {
+    "vectorize": "python3 src/vectorize_logo.py",
+    "render": "node src/render.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.55.0"
+  }
+}
