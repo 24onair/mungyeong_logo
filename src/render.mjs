@@ -3,7 +3,7 @@
 //
 //   node src/render.mjs                       -> out/mungyeong_reel_silent.mp4
 //   node src/render.mjs --stills 0.3,0.8,4.4  -> out/stills/t0.300.png ...
-//   options: --samples N (motion-blur sub-frames, default 6) --out path
+//   options: --page src/collage/collage.html  --samples N (motion-blur sub-frames, default 6)  --out path
 import { chromium } from 'playwright-core';
 import { spawn, execSync } from 'node:child_process';
 import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
@@ -19,10 +19,10 @@ const ffmpeg = process.env.FFMPEG || (() => {
 })();
 const chromePath = process.env.CHROME || ['/opt/pw-browsers/chromium', '/usr/bin/chromium'].find(existsSync);
 
-const browser = await chromium.launch({ executablePath: chromePath, args: ['--disable-gpu-vsync', '--force-color-profile=srgb'] });
+const browser = await chromium.launch({ executablePath: chromePath, args: ['--disable-gpu-vsync', '--force-color-profile=srgb', '--allow-file-access-from-files'] });
 const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
 page.on('pageerror', e => { console.error('page error:', e); process.exit(1); });
-await page.goto('file://' + resolve(ROOT, 'src/reel.html') + '?render');
+await page.goto('file://' + resolve(ROOT, args.page ?? 'src/reel.html') + '?render');
 await page.evaluate(() => window.REEL.ready);
 const { frames, FPS } = await page.evaluate(() => ({ frames: window.REEL.frames, FPS: window.REEL.FPS }));
 

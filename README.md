@@ -35,3 +35,34 @@ ffmpeg -i out/mungyeong_reel_silent.mp4 -i out/sfx.wav -c:v copy -c:a aac -b:a 2
 모든 모션은 시간 `t`의 순수 함수(`src/reel.js`)라서 미리보기와 렌더 결과가 프레임 단위로 같습니다.
 
 폰트: Black Han Sans, Noto Sans KR (둘 다 SIL OFL). 전화 아이콘: Material Icons (Apache 2.0).
+
+---
+
+# 버전 2 — 페이퍼 콜라주 릴 (Vox 스타일, 4.5s)
+
+찢은 종이 배경 + 실제 사진 컷아웃 + 마커 낙서로 만든 페이퍼크래프트 콜라주 버전입니다.
+1080×1920 / 30fps. 종이 조각은 스톱모션처럼 15fps 스텝으로 움직이고 12fps로 미세하게 흔들립니다(boil).
+
+| 파일 | 설명 |
+|---|---|
+| `out/collage/mungyeong_collage.mp4` | 완성본 (마림바 그루브 + 종이 효과음) |
+| `out/collage/mungyeong_collage_silent.mp4` | 무음 버전 |
+| `out/collage/sfx.wav` | 사운드 트랙 |
+| `out/collage/poster.png` | 마지막 프레임 |
+
+| 시간 | 장면 |
+|---|---|
+| 0.0 – 0.7 | 하늘 띠·해·구름·산·언덕이 찢은 종이로 착착 쌓임 |
+| 0.45 – 1.4 | 탠덤 사진 인화지가 철썩 붙고 테이프, 노란 마커 동그라미 + "짜릿!" |
+| 1.2 – 1.9 | 크루 사진 스티커가 튀어오르고 빨간 화살표 + "이륙!" |
+| 2.0 – 3.1 | 로고 카드가 떨어지고 글자 스티커가 하나씩, 종이 날개 착지 |
+| 2.9 – 3.9 | 빨간 종이띠가 찢어지며 등장, **예약문의** 라벨, **1688-6707** 숫자 타일, 흰 마커 밑줄 |
+
+```bash
+pip install rembg onnxruntime            # 크루 사진 누끼 (isnet-general-use) -> assets/photos/launch_crew_cutout.png
+python3 src/collage/make_paper.py       # 찢은 종이 스프라이트 -> assets/collage/, src/collage/sprites.js
+python3 src/collage/make_audio.py       # out/collage/sfx.wav
+node src/render.mjs --page src/collage/collage.html --out out/collage/mungyeong_collage_silent.mp4
+```
+
+손글씨 폰트: Nanum Pen Script (SIL OFL).
